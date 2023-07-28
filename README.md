@@ -37,3 +37,71 @@ $$\begin{equation}
 \end{aligned}
 \end{equation}$$
 
+Consider the partitioning 
+
+$$ X = \begin{bmatrix}
+    X_l \\
+    X_u
+\end{bmatrix}\ and\ \tilde L = \begin{bmatrix}
+    \tilde L_{11} & \tilde L_{12} \\
+    \tilde L_{21} & \tilde L_{22}
+\end{bmatrix} $$
+
+$$ => X^T \tilde L X = \begin{bmatrix}
+    X_l^T & X_u^T
+\end{bmatrix} \begin{bmatrix}
+    \tilde L_{11} & \tilde L_{12} \\
+    \tilde L_{21} & \tilde L_{22}
+\end{bmatrix} \begin{bmatrix}
+    X_l \\
+    X_u
+\end{bmatrix}$$
+
+$$ => X^T \tilde L X = X_l^T \tilde L_{11} X_l + X_u^T \tilde L_{21} X_l + X_l^T \tilde L_{12} X_u + X_u^T \tilde L_{22} X_u $$
+
+So, minimizing $X^T \tilde L X$ is the same as minimizing $X_l^T \tilde L_{11} X_l + X_u^T \tilde L_{21} X_l + X_l^T \tilde L_{12} X_u + X_u^T \tilde L_{22} X_u$.
+
+$X_l^T \tilde L_{11} X_l$ can be removed from this objective because it is a constant. Hence the final minimization objective is $X_u^T \tilde L_{21} X_l + X_l^T \tilde L_{12} X_u + X_u^T \tilde L_{22} X_u$ which is equivalent to $\langle X_u, \tilde L_{21} X_l \rangle + \langle X_l, \tilde L_{12} X_u \rangle + \langle X_u, \tilde L_{22} X_u \rangle$.
+
+$$ Similarly,\ X^T X = \begin{bmatrix}
+    X_l^T & X_u^T
+\end{bmatrix} \begin{bmatrix}
+    X_l \\
+    X_u
+\end{bmatrix} $$
+
+$$ => X^T X = X_l^T X_l + X_u^T X_u $$
+
+$$ => X^T X \leq r^2 \rightarrow X_l^T X_l + X_u^T X_u \leq r^2 \rightarrow X_u^T X_u \leq r^2 - X_l^T X_l \rightarrow \langle X_u, X_u \rangle \leq r^2 - \langle X_l, X_l \rangle $$
+
+### Associated optimization problem
+
+$$ \begin{equation}
+    \begin{aligned}
+        &\min_{X_u \in \mathbb{R}^{n-k\times m}} \langle X_u, \tilde L_{21} X_l \rangle + \langle X_l, \tilde L_{12} X_u \rangle + \langle X_u, \tilde L_{22} X_u \rangle\\
+        &subject\ to\ \langle X_u, X_u \rangle \leq r^2 - \langle X_l, X_l \rangle
+    \end{aligned}
+\end{equation} $$
+
+### Derivation of Dual
+
+Lagrangian = $\langle X_u, \tilde L_{21} X_l \rangle + \langle X_l, \tilde L_{12} X_u \rangle + \langle X_u, \tilde L_{22} X_u \rangle + \lambda (\langle X_u, X_u \rangle + \langle X_l, X_l \rangle - r^2)$
+
+$g(\lambda) = \inf_{X_u} [\langle X_u, \tilde L_{21} X_l \rangle + \langle X_l, \tilde L_{12} X_u \rangle + \langle X_u, \tilde L_{22} X_u \rangle + \lambda (\langle X_u, X_u \rangle + \langle X_l, X_l \rangle - r^2)]$
+
+Infinimum occurs when $\nabla_{X_u}\ Lagrangian = 0$
+
+$=> \nabla_{X_u}\ Lagrangian = \tilde L_{21} X_l + (\tilde L_{12})^T X_l + (\tilde L_{22} + (\tilde L_{22})^T) X_u + 2\lambda X_u = 0$
+
+$=> X_u = - (\tilde L_{22} + (\tilde L_{22})^T + 2\lambda I)^{-1} (\tilde L_{21} X_l + (\tilde L_{12})^T X_l)$
+
+Let this value of $X_u$ be $\tilde X_u$. So, $g(\lambda) =$ Lagrangian at $\tilde X_u$ = $\langle \tilde X_u, \tilde L_{21} X_l \rangle + \langle X_l, \tilde L_{12} \tilde X_u \rangle + \langle \tilde X_u, \tilde L_{22} \tilde X_u \rangle + \lambda (\langle \tilde X_u, \tilde X_u \rangle + \langle X_l, X_l \rangle - r^2)$.
+
+Then the dual problem is
+
+$$\begin{equation}
+    \begin{aligned}
+        &Maximize\ \langle \tilde X_u, \tilde L_{21} X_l \rangle + \langle X_l, \tilde L_{12} \tilde X_u \rangle + \langle \tilde X_u, \tilde L_{22} \tilde X_u \rangle + \lambda (\langle \tilde X_u, \tilde X_u \rangle + \langle X_l, X_l \rangle - r^2)\\
+        &subject\ to\ \lambda \geq 0
+\end{aligned}
+\end{equation}$$
