@@ -105,3 +105,13 @@ $$\begin{equation}
         &subject\ to\ \lambda \geq 0
 \end{aligned}
 \end{equation}$$
+
+## Visualization
+
+Let $X \in R^{n×3}$ represent the coordinates of n vertices in 3-d. The vertex coordinate assignment can be visualized as a “drawing” of G.
+
+![](groundTruth.png)
+
+The solution to the optimization problem derived in the previous section is shown below.
+
+![](solution.png)
