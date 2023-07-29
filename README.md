@@ -115,3 +115,9 @@ Let $X \in R^{n×3}$ represent the coordinates of n vertices in 3-d. The vertex 
 The solution to the optimization problem derived in the previous section is shown below.
 
 ![](solution.png)
+
+Below is an animation of the solution
+
+https://github.com/aayushg97/Graph-Embedding/assets/30308551/0c6954ed-82c8-4623-8fe0-3405fedae92e
+
+
